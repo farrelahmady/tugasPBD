@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
-use App\Http\Requests\StoreNoteRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateNoteRequest;
 
 class NoteController extends Controller
@@ -37,9 +37,13 @@ class NoteController extends Controller
      * @param  \App\Http\Requests\StoreNoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNoteRequest $request)
+    public function store(Request $request)
     {
-        //
+        $note = new Note;
+        $note -> note = $request->note;
+        $note->save();
+
+        return redirect()->route('note.index');
     }
 
     /**
