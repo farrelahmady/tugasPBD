@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Note;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
 
@@ -37,9 +38,24 @@ class NoteController extends Controller
      * @param  \App\Http\Requests\StoreNoteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNoteRequest $request)
+    public function store(Request $request)
     {
-        //
+        // $validated = $request->validated();
+
+        // Retrieve a portion of the validated input data...
+        // $validated = $request->safe()->only(['title', 'email']);
+        // $validated = $request->safe()->except(['title', 'email']);
+
+        // return $request;
+
+        $validated = $request->validate([
+            'title' => 'required',
+            'note' => 'required'
+        ]);
+
+        Note::create($validated);
+
+        return redirect('/note')->with('success', 'New note Succesfully Added');
     }
 
     /**
@@ -61,7 +77,9 @@ class NoteController extends Controller
      */
     public function edit(Note $note)
     {
-        return view('note.edit');
+        return view('note.edit', [
+            'note' => $note
+        ]);
     }
 
     /**
@@ -71,9 +89,16 @@ class NoteController extends Controller
      * @param  \App\Models\Note  $note
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNoteRequest $request, Note $note)
+    public function update(Request $request, Note $note)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'note' => 'required'
+        ]);
+
+        Note::where('id', $note->id)->update($validated);
+
+        return redirect('/note')->with('success', 'New note Succesfully Added');
     }
 
     /**
@@ -84,6 +109,7 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        //
+        Note::destroy($note->id);
+        return redirect('/note')->with('success', 'Note Has Been Deleted!');
     }
 }

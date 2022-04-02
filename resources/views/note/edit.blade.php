@@ -5,13 +5,16 @@
         </h2>
     </x-slot>
 
-    <form class="container mt-5" action="" method="post">
+    <form class="container mt-5" action="/note/{{ $note->id }}" method="post">
+        @method('put')
+        @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="email" class="form-control" id="title" name="title" value="">
+            <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $note->title) }}">
         </div>
-        <div class="mb-3">
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <div class="mb-3" class="bg-primary">
+            <input id="note" type="hidden" name="note" value="{{ old('note', $note->note) }}">
+            <trix-editor class="form-control" input="note"></trix-editor>
         </div>
 
         <button type="submit" class="btn btn-primary">Save Note</button>

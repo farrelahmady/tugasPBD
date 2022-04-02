@@ -28,4 +28,4 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::resource('note', NoteController::class)->middleware('auth:sanctum');
+Route::resource('note', NoteController::class);
