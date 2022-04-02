@@ -28,7 +28,7 @@
                                         <div class="col-lg-10">
                                             <h3 class="title text-2xl font-bold mb-1" style="color:#6777EF;">
                                                 {{ $row->title }}</h3>
-                                            <p> {{ $row->note }}</p>
+                                            <p> {!! $row->note !!}</p>
                                         </div>
 
                                         <div class="col-lg-1">

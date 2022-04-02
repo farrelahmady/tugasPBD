@@ -39,7 +39,9 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $note = new Note;
+        $note->title = $request->title;
         $note->note = $request->note;
         $note->save();
 
