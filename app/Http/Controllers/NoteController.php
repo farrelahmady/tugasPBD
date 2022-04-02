@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Note;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreNoteRequest;
 use App\Http\Requests\UpdateNoteRequest;
 
 class NoteController extends Controller
@@ -40,22 +39,11 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validated();
+        $note = new Note;
+        $note->note = $request->note;
+        $note->save();
 
-        // Retrieve a portion of the validated input data...
-        // $validated = $request->safe()->only(['title', 'email']);
-        // $validated = $request->safe()->except(['title', 'email']);
-
-        // return $request;
-
-        $validated = $request->validate([
-            'title' => 'required',
-            'note' => 'required'
-        ]);
-
-        Note::create($validated);
-
-        return redirect('/note')->with('success', 'New note Succesfully Added');
+        return redirect()->route('note.index');
     }
 
     /**
