@@ -30,20 +30,20 @@ class RouteAction
         // as the "uses" property, because there is nothing else we need to do when
         // it is available. Otherwise we will need to find it in the action list.
         if (Reflector::isCallable($action, true)) {
-            return ! is_array($action) ? ['uses' => $action] : [
-                'uses' => $action[0].'@'.$action[1],
-                'controller' => $action[0].'@'.$action[1],
+            return !is_array($action) ? ['uses' => $action] : [
+                'uses' => $action[0] . '@' . $action[1],
+                'controller' => $action[0] . '@' . $action[1],
             ];
         }
 
         // If no "uses" property has been set, we will dig through the array to find a
         // Closure instance within this list. We will set the first Closure we come
         // across into the "uses" property that will get fired off by this route.
-        elseif (! isset($action['uses'])) {
+        elseif (!isset($action['uses'])) {
             $action['uses'] = static::findCallable($action);
         }
 
-        if (! static::containsSerializedClosure($action) && is_string($action['uses']) && ! Str::contains($action['uses'], '@')) {
+        if (!static::containsSerializedClosure($action) && is_string($action['uses']) && !Str::contains($action['uses'], '@')) {
             $action['uses'] = static::makeInvokable($action['uses']);
         }
 
@@ -88,11 +88,11 @@ class RouteAction
      */
     protected static function makeInvokable($action)
     {
-        if (! method_exists($action, '__invoke')) {
+        if (!method_exists($action, '__invoke')) {
             throw new UnexpectedValueException("Invalid route action: [{$action}].");
         }
 
-        return $action.'@__invoke';
+        return $action . '@__invoke';
     }
 
     /**

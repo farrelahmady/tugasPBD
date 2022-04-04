@@ -33,16 +33,16 @@
 
                                         <div class="col-lg-1">
                                             <button wire:click="complete({{ $row->id }})" type="button"
-                                                style="position: absolute; bottom: 0;" class="-ml- btn btn-primary">
-                                                <span class="fas fa-check"> </span>
+                                                style="position: absolute; bottom: 0;" class="-ml- btn btn-danger">
+                                                <span class="fas fa-trash"> </span>
                                             </button>
                                         </div>
                                         <!-- trigger modal -->
                                         <div class="col-lg-1">
-                                            <button wire:click="detail({{ $row->id }})" type="button"
-                                                style="position: absolute; bottom: 0;" class="-ml- btn btn-primary">
-                                                <span class="fas fa-expand"> </span>
-                                            </button>
+                                            <a href="/note/{{ $row->id }}/edit"
+                                                style="position: absolute; bottom: 0;" class="-ml- btn btn-warning">
+                                                <span class="fas fa-edit"> </span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
