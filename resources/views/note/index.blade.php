@@ -4,9 +4,9 @@
             {{ __('Note') }}
         </h2>
     </x-slot>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-5">
+    <div class="py-8">
+        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-5 py-4">
                 <div class="text-2xl font-bold mb-3">
                     Note List
                 </div>
@@ -15,42 +15,40 @@
                     <span class="fas fa-plus"> </span>
                     Create Note
                 </a>
-            </div>
-            <div class="wrap-container overflow: hidden; mb-4">
-                <div class="container">
-                    @forelse($notes as $row)
-                        <!-- CARD -->
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="card ml-3 mt-2 mb-6" id="card-item"
-                                    style="border-radius: 20px !important; box-shadow: 0px 5px 10px #6777EF; width: 800px;">
+                <div class="wrap-container mt-4">
+                    <div class="container">
+                        @forelse($notes as $row)
+                            <!-- CARD -->
+                            <div class="row">
+                                <div class="card mt-2 mb-4" id="card-item"
+                                    style="border-radius: 20px !important; box-shadow: 0px 5px 10px #3b82f6; width: 100%;">
                                     <div class="card-body d-flex">
-                                        <div class="col-lg-10">
-                                            <h3 class="title text-2xl font-bold mb-1" style="color:#6777EF;">
+                                        <div class="col-lg-11 ml-2">
+                                            <h3 class="title font-bold mt-2" style="color:#3b82f6;">
                                                 {{ $row->title }}</h3>
                                             <p> {!! $row->note !!}</p>
                                         </div>
-
-                                        <div class="col-lg-1">
-                                            <button wire:click="complete({{ $row->id }})" type="button"
-                                                style="position: absolute; bottom: 0;" class="-ml- btn btn-danger">
-                                                <span class="fas fa-trash"> </span>
-                                            </button>
-                                        </div>
-                                        <!-- trigger modal -->
-                                        <div class="col-lg-1">
+                                        <div class="col-lg-1 ml-4">
+                                            <form action="{{ route('note.destroy', $row->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit"
+                                                    class="btn btn-danger mt-2">
+                                                    <span class="fas fa-trash"> </span>
+                                                </button>
+                                            </form>
                                             <a href="/note/{{ $row->id }}/edit"
-                                                style="position: absolute; bottom: 0;" class="-ml- btn btn-warning">
+                                                class="btn btn-warning mt-3">
                                                 <span class="fas fa-edit"> </span>
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @empty
-                        <h2 class="text-2xl text-center mb-3"> ... </h2>
-                    @endforelse
+                        @empty
+                            <h2 class="text-2xl text-center"> ... </h2>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>

@@ -99,7 +99,7 @@ class NoteController extends Controller
      */
     public function destroy(Note $note)
     {
-        Note::destroy($note->id);
+        $note->delete();
         return redirect('/note')->with('success', 'Note Has Been Deleted!');
     }
 }
